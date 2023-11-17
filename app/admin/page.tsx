@@ -1,0 +1,29 @@
+import getProducts from "@/actions/getProducts";
+import Summary from "./Summary";
+import getOrders from "@/actions/getOrders";
+import getUsers from "@/actions/getUsers";
+import Container from "../components/Container";
+import BarGraph from "./BarGraph";
+import getGraphData from "@/actions/getGraphData";
+
+const Admin = async () => {
+  const products = await getProducts({ category: null });
+  const orders = await getOrders();
+  const users = await getUsers();
+
+  const graphData = await getGraphData();
+
+  return (
+    <div className="pt-8">
+      <Container>
+        <Summary products={products} orders={orders} users={users} />
+        <div className="mx-auto w-[70%] mt-20">
+          <hr className="bg-slate-200 h-[2px] mb-20" />
+          <BarGraph data={graphData} />
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export default Admin;
